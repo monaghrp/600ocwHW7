@@ -145,9 +145,10 @@ class SimplePatient(object):
             if self.v[i].doesClear():
                 ##print 'Virus lived'
                 vnew_check.append(self.v[i])
-        density=len(self.v)/self.mP
+        ##density=len(self.v)/self.mP
         self.v=vnew_check
         for i in xrange(0,len(self.v)):
+            density=(len(self.v)+len(vnew_repo)-i)/self.mP
             try:
                 ##print 'Virus reproduced'
                 vtemp=self.v[i].reproduce(density)
@@ -157,6 +158,7 @@ class SimplePatient(object):
                 pass
             vnew_repo.append(self.v[i])
         self.v=vnew_repo
+        print(len(self.v))
         return len(self.v)
                         
 
@@ -177,8 +179,8 @@ def simulationWithoutDrug():
     in_virus=[]
     iterations=[]
     maxPop=1000
-    maxBirthProb=0.5
-    clearProb=0.1
+    maxBirthProb=0.1
+    clearProb=0.04
     
     for i in xrange(0,100):
         in_virus.append(SimpleVirus(maxBirthProb,clearProb))
